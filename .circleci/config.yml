@@ -2,7 +2,7 @@ version: 2.1
 executors:
   my-custom-executor:
     docker:
-      - image: cimg/node
+      - image: cimg/node:17.2.0 
         auth:
           # ensure you have first added these secrets
           # visit app.circleci.com/settings/project/github/FarazAshfaq/CircleCI-Nodejs/environment-variables
