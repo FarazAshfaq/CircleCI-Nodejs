@@ -1,14 +1,23 @@
 version: 2.1
-orbs:
-  node: circleci/node@4.7.0
+executors:
+  my-custom-executor:
+    docker:
+      - image: cimg/node
+        auth:
+          # ensure you have first added these secrets
+          # visit app.circleci.com/settings/project/github/FarazAshfaq/CircleCI-Nodejs/environment-variables
+          username: $DOCKER_HUB_USER
+          password: $DOCKER_HUB_PASSWORD
 jobs:
-  build:
-    executor:
-      name: node/default
-      tag: '10.4'
+  nodejs:
+
+    executor: my-custom-executor
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-      - run: node server.js
+      - run: |
+          node server.js
+
+workflows:
+  my-custom-workflow:
+    jobs:
+      - nodejs
